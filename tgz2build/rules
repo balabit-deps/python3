@@ -1,0 +1,38 @@
+#!/usr/bin/make -f
+STAMPDIR=tgz2build/stamps
+
+RPATH=-Wl,-R/opt/syslog-ng/lib
+
+all: binary
+
+binary: $(STAMPDIR)/stamp-setup $(STAMPDIR)/stamp-configure $(STAMPDIR)/stamp-build $(STAMPDIR)/stamp-install
+
+setup: $(STAMPDIR)/stamp-setup
+$(STAMPDIR)/stamp-setup:
+	mkdir tgz2build/stamps || true
+	touch $@
+
+configure: $(STAMPDIR)/stamp-configure
+$(STAMPDIR)/stamp-configure: $(STAMPDIR)/stamp-setup
+	CFLAGS="-O2 -g $(CFLAGS)" LDFLAGS="$(RPATH) $(LDFLAGS)" ./configure --prefix="${ZBS_PREFIX}" --enable-shared --enable-optimizations --enable-ipv6
+	touch $@
+
+build: $(STAMPDIR)/stamp-build
+$(STAMPDIR)/stamp-build: $(STAMPDIR)/stamp-configure
+	$(MAKE)
+	touch $@
+
+install:  $(STAMPDIR)/stamp-install
+$(STAMPDIR)/stamp-install: $(STAMPDIR)/stamp-build
+	rm -rf $(ZBS_STAGE_DIR)
+	$(MAKE) install DESTDIR=$(ZBS_STAGE_DIR)
+	find $(ZBS_STAGE_DIR) -name '*.a' -delete
+	rm -rf $(ZBS_STAGE_DIR)/$(ZBS_PREFIX)/lib/python*/{test,ctypes/test,distutils/tests,idlelib/idle_test,lib2to3/tests,sqlite3/test,tkinter/test,unittest/test}
+
+	touch $@
+
+clean:
+	rm -rf tgz2build/stamps || true
+	rm -rf tgz2build/syslog-ng || true
+	rm -rf tgz2build/staging || true
+	$(MAKE) clean

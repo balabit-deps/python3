@@ -1,0 +1,5 @@
+python3 (3.8.1-1.syslogng70.0) syslogng70; urgency=medium
+
+  * import python3
+
+ -- Laszlo Varady <laszlo.varady@balabit.com>  Wed, 05 Feb 2020 10:21:28 +0100

@@ -1,0 +1,7 @@
+name: python3
+builder:
+  name: PythonBuilder
+  flags: "no-make-dist"
+  configure_options: --enable-shared --enable-optimizations --enable-ipv6 --with-openssl=\${prefix}
+platforms:
+  - linux-glibc2.11/amd64

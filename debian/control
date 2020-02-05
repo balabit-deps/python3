@@ -1,0 +1,21 @@
+Source: python3
+Section: libdevel
+Priority: extra
+Maintainer: syslog-ng developers <syslog-ng@lists.balabit.hu>
+Build-depends: pkg-config
+Standards-Version: 3.6.1
+
+Package: python3
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Description: Python3
+
+Package: python3-dev
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Description: Python3
+
+Package: python3-dbg
+Architecture: amd64
+Depends: python3
+Description: Debug symbols for python3
