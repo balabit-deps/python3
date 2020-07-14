@@ -4,3 +4,5 @@ readline-dev
 readline
 libbz2-dev
 libbz2
+libsqlite3
+libsqlite3-dev
