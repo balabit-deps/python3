@@ -1,3 +1,9 @@
+python3 (3.8.1-2.syslogng70.0) syslogng70; urgency=medium
+
+  * add sqlite3 support
+
+ -- Gabor Nagy <gabor.nagy@balabit.com>  Wed, 15 Jul 2020 10:36:48 +0200
+
 python3 (3.8.1-1.syslogng70.0) syslogng70; urgency=medium
 
   * import python3
