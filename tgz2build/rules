@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 STAMPDIR=tgz2build/stamps
 
-RPATH=-Wl,-R/opt/syslog-ng/lib
+RPATH=-Wl,-z,origin,-rpath,\$$$$ORIGIN/../lib
 
 all: binary
 
@@ -14,7 +14,7 @@ $(STAMPDIR)/stamp-setup:
 
 configure: $(STAMPDIR)/stamp-configure
 $(STAMPDIR)/stamp-configure: $(STAMPDIR)/stamp-setup
-	CFLAGS="-O2 -g $(CFLAGS)" LDFLAGS="$(RPATH) $(LDFLAGS)" ./configure --prefix="${ZBS_PREFIX}" --enable-shared --enable-optimizations --enable-ipv6
+	CFLAGS="-O2 -g $(CFLAGS)" LDFLAGS='$(RPATH) $(LDFLAGS)' ./configure --prefix="${ZBS_PREFIX}" --enable-shared --enable-optimizations --enable-ipv6
 	touch $@
 
 build: $(STAMPDIR)/stamp-build
