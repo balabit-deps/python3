@@ -234,6 +234,9 @@ def customize_compiler(compiler):
             linker_exe=cc,
             archiver=archiver)
 
+        compiler.set_library_dirs(["/opt/syslog-ng/lib"])
+        compiler.set_include_dirs(["/opt/syslog-ng/include"])
+
         compiler.shared_lib_extension = shlib_suffix
 
 
