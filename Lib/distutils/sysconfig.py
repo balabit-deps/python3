@@ -235,8 +235,19 @@ def customize_compiler(compiler):
             linker_exe=cc,
             archiver=archiver)
 
-        compiler.set_library_dirs(["/opt/syslog-ng/lib"])
-        compiler.set_include_dirs(["/opt/syslog-ng/include"])
+        include_dirs = []
+        library_dirs = []
+
+        for token in cflags.split():
+            if token.startswith("-I"):
+                include_dirs.append(token[2:])
+
+        for token in ldshared.split():
+            if token.startswith("-L"):
+                library_dirs.append(token[2:])
+
+        compiler.set_library_dirs(library_dirs)
+        compiler.set_include_dirs(include_dirs)
 
         compiler.shared_lib_extension = shlib_suffix
 
