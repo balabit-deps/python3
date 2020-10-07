@@ -225,6 +225,7 @@ def customize_compiler(compiler):
             archiver = ar + ' ' + ar_flags
 
         cc_cmd = cc + ' ' + cflags
+        cc_cmd = cc_cmd.replace("--coverage", "")
         compiler.set_executables(
             preprocessor=cpp,
             compiler=cc_cmd,
