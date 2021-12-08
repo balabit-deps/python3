@@ -1,0 +1,36 @@
+source="python3"
+version=3.8.1-pe-1
+dependencies=(
+  'openssl' 'openssl-dev'
+  'libssl' 'libssl-dev'
+  'libbz2' 'libbz2-dev'
+  'libsqlite3' 'libsqlite3-dev'
+  'libedit' 'libedit-dev'
+  'libncurses' 'libncurses-dev'
+  'libffi' 'libffi-dev'
+  'zlib' 'zlib-dev'
+)
+
+check_debugsym_skip_list=("${prefix}/*")
+
+bootstrap() {
+  autoreconf -iv
+}
+
+build() {
+  cd "${build_dir}"
+
+  # Hack: "Profile guided optimization" needs -O3, but it can't be easily overridden with Python's configure script
+  CFLAGS="${CFLAGS/-O2/-O3}"
+
+  ${src_dir}/configure --prefix="${prefix}" --enable-shared --enable-optimizations --enable-ipv6
+
+  make
+}
+
+install() {
+  make -C "${build_dir}" DESTDIR="${dest_dir}" install
+
+  find "${dest_dir}" -name '*.a' -delete
+  rm -rf "${dest_dir}/${prefix}"/lib/python*/{test,ctypes/test,distutils/tests,idlelib/idle_test,lib2to3/tests,sqlite3/test,tkinter/test,unittest/test}
+}

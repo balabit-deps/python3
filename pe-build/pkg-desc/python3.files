@@ -1,0 +1,5 @@
+opt/syslog-ng/bin/2to3*
+opt/syslog-ng/bin/pydoc*
+opt/syslog-ng/bin/python*
+opt/syslog-ng/include/*
+opt/syslog-ng/lib/*

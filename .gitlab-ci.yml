@@ -1,0 +1,8 @@
+variables:
+  PE_BUILDER_BRANCH: "master"
+  GIT_DEPTH: 1
+
+include:
+  - project: "syslog-ng/pe-builder-image"
+    ref: "master"
+    file: "/common/builder/gitlab-ci.inc.yml"
