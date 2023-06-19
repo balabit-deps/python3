@@ -33,4 +33,8 @@ install() {
 
   find "${dest_dir}" -name '*.a' -delete
   rm -rf "${dest_dir}/${prefix}"/lib/python*/{test,ctypes/test,distutils/tests,idlelib/idle_test,lib2to3/tests,sqlite3/test,tkinter/test,unittest/test}
+  
+  pushd ${dest_dir}/${prefix}/bin
+  ln -s ./python3 ./python
+  popd
 }
